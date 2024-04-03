@@ -16,11 +16,15 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
 const port = process.env.PORT || 8080;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server is running on port ${port}`);
 });
 
 app.get("/gen_commitment", async (req, res)=>{
+    const commitment = await addCommitment()
+    res.send(commitment)
+})
+app.post("/gen_commitment", async (req, res)=>{
     const commitment = await addCommitment()
     res.send(commitment)
 })
@@ -91,7 +95,7 @@ function calculateMerkleRootAndPath(mimc, elements, element=undefined) {
               fillDefaultHash:()=>{return ZERO_VALUE}
     })
       const layerAmount = tree.getLayerCount()
-      
+    
       const layers = tree.getHexLayers().map((layer)=>layer.map((leaf => leaf.substring(2)))) // get hex layers instead of buffers and remove '0x'
       for(let i = layerAmount - 1; i<20;i++){
           const hash = treeHashFn([layers[i][0], zeros[i]])  // start at root and hash with the corresponding zero
