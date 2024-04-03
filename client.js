@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(window.location.href)
 });
 const windowLink = window.location.href
+document.querySelector("#commitments-response").addEventListener("click", async()=>{
+    fetch(`${windowLink}/get_commitments`)
+.then(document.querySelector("commitments-response").textContent = data)
+})
 document.querySelector("#add-commitment").addEventListener("click", async()=>{
     fetch(`${windowLink}/gen_commitment`)
 .then(response => {

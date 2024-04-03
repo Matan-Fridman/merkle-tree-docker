@@ -8,6 +8,7 @@
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "express": "^4.19.1",
+    "ffjavascript": "^0.2.63",
     "helia": "^4.0.2",
     "http": "^0.0.1-security",
     "ipfs": "^0.66.1",
