@@ -1,0 +1,23 @@
+{
+  "name": "hardhat-project",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
+    "@google-cloud/storage": "^7.9.0",
+    "@openzeppelin/contracts": "^5.0.1",
+    "@thirdweb-dev/storage": "^2.0.10",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.1",
+    "helia": "^4.0.2",
+    "http": "^0.0.1-security",
+    "ipfs": "^0.66.1",
+    "merkletreejs": "^0.3.11",
+    "stripe": "^14.21.0",
+    "zk-merkle-tree": "^1.0.4"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.20.1"
+  }
+}
