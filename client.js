@@ -3,10 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("showing page")
     console.log(window.location.href)
 });
+
+
 const windowLink = window.location.href
-document.querySelector("#commitments-response").addEventListener("click", async()=>{
-    fetch(`${windowLink}/get_commitments`)
-.then(document.querySelector("commitments-response").textContent = data)
+document.querySelector("#show-commitments").addEventListener("click", async()=>{
+    console.log(`${windowLink}/get_commitments`)
+    const response = await fetch(`${windowLink}/get_commitments`)
+    console.log(await response.json())
+    document.querySelector("#commitments-response").textContent = JSON.stringify(await response.json())
 })
 document.querySelector("#add-commitment").addEventListener("click", async()=>{
     fetch(`${windowLink}/gen_commitment`)

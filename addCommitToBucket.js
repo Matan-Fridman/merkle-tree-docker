@@ -31,16 +31,8 @@ async function requestProofVerification(commitment){    //upload commitment to b
 }
 // addCommitmentToBucket()
 async function test(){
-    const mimc = await buildMimcSponge()
-    const nullifier = BigNumber.from(crypto.randomBytes(31)).toString();
-    const secret = BigNumber.from(crypto.randomBytes(31)).toString();
-    const commitment = mimc.F.toString(mimc.multiHash([nullifier, secret]));
-    const nullifierHash = mimc.F.toString(mimc.multiHash([nullifier]));
-    console.log( {
-        nullifier: nullifier,
-        secret: secret,
-        commitment: commitment,
-        nullifierHash: nullifierHash
-    });
+    const response = await fetch('https://merkle-tree-o4h4ohxpva-ez.a.run.app/get_commitments');
+    const data = await response.json(); // Assuming the response is JSON
+    console.log(data); 
 }
 test()
