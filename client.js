@@ -12,6 +12,9 @@ document.querySelector("#show-commitments").addEventListener("click", async()=>{
     console.log(await response.json())
     document.querySelector("#commitments-response").textContent = JSON.stringify(await response.json())
 })
+document.querySelector("#add-commitment-cloud").addEventListener("click", ()=>{
+    window.open("https://europe-west4-arnacon-nl.cloudfunctions.net/gen-commitment-into-bucket", "_blank")
+})
 document.querySelector("#add-commitment").addEventListener("click", async()=>{
     fetch(`${windowLink}/gen_commitment`)
 .then(response => {
