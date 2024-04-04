@@ -19,14 +19,11 @@ app.get("/gen_commitment", async (req, res)=>{
     const commitment = await addCommitment()
     res.send(commitment)
 })
-document.querySelector("#show-commitments").addEventListener("click", async () => {
-    console.log(`${windowLink}/get_commitments`);
-    const response = await fetch(`${windowLink}/get_commitments`);
-    const responseData = await response.json(); // Read response body once
-    console.log(responseData);
-    document.querySelector("#commitments-response").textContent = JSON.stringify(responseData);
-});
-
+app.get("/get_commitments", async (req, res)=>{
+    const commitments = (await fs.promises.readFile("google-cloud-downloads/merkle-tree-commitments", "utf-8")).split(", ")
+    console.log(commitments)
+    res.send(commitments)
+})
 app.post("/add_commitments_from_bucket", async (req, res)=>{ // trigger request from bucket to add commitments
     const commitmentsToAdd = await getFileNames()   // all unadded commitments in bucket
     console.log("new commitments: ", commitmentsToAdd)

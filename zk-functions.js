@@ -22,18 +22,18 @@ module.exports = {generateCommitment, addCommitment, generateAndVerifyProof, get
     };
 }
 async function addCommitment(preMadeCommitments = undefined) {
-    if(preMadeCommitments){
+    if(preMadeCommitments){ // add commitments from bucket to loacl rep
         const storage = new Storage()
         for(const cmt of preMadeCommitments){
             await fs.promises.appendFile("google-cloud-downloads/merkle-tree-commitments", `, ${cmt}`, "utf-8")
             await storage.bucket("matan-testing-bucket").file(cmt).delete()
         }
-        return
+    }
+    else{   // generate and add commitment locally
+        const commitment = await generateCommitment();
+        await fs.promises.appendFile("google-cloud-downloads/merkle-tree-commitments", `, ${commitment.commitment}`, "utf-8")
     }
     const mimc = await buildMimcSponge()
-    const commitment = await generateCommitment();
-    await fs.promises.appendFile("google-cloud-downloads/merkle-tree-commitments", `, ${commitment.commitment}`, "utf-8")
-    // await appendNewCommitment(commitment.commitment)    // add new commitment to bucket
 
     const commitmentData = await fs.promises.readFile("google-cloud-downloads/merkle-tree-commitments", "utf-8")
     const commitments = commitmentData.split(', ');
@@ -54,7 +54,8 @@ async function addCommitment(preMadeCommitments = undefined) {
         console.error("Error writing file:", error);
         throw error;
     }
-    return commitment;
+    console.log("successfully added commitment")
+    return;
 }
  function calculateMerkleRootAndPath(mimc, elements, element=undefined) {
     //   const zeros = generateZeros(mimc, 20);

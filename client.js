@@ -9,8 +9,9 @@ const windowLink = window.location.href
 document.querySelector("#show-commitments").addEventListener("click", async()=>{
     console.log(`${windowLink}/get_commitments`)
     const response = await fetch(`${windowLink}/get_commitments`)
-    console.log(await response.json())
-    document.querySelector("#commitments-response").textContent = JSON.stringify(await response.json())
+    const responseData = await response.json()
+    console.log(responseData)
+    document.querySelector("#commitments-response").textContent = JSON.stringify(await responseData)
 })
 document.querySelector("#add-commitment-cloud").addEventListener("click", ()=>{
     window.open("https://europe-west4-arnacon-nl.cloudfunctions.net/gen-commitment-into-bucket", "_blank")
