@@ -22,6 +22,7 @@ module.exports = {generateCommitment, addCommitment, generateAndVerifyProof, get
     };
 }
 async function addCommitment(preMadeCommitments = undefined) {
+    let commitment = undefined
     if(preMadeCommitments){ // add commitments from bucket to loacl rep
         const storage = new Storage()
         for(const cmt of preMadeCommitments){
@@ -30,7 +31,7 @@ async function addCommitment(preMadeCommitments = undefined) {
         }
     }
     else{   // generate and add commitment locally
-        const commitment = await generateCommitment();
+        commitment = await generateCommitment();
         await fs.promises.appendFile("google-cloud-downloads/merkle-tree-commitments", `, ${commitment.commitment}`, "utf-8")
     }
     const mimc = await buildMimcSponge()
@@ -55,6 +56,9 @@ async function addCommitment(preMadeCommitments = undefined) {
         throw error;
     }
     console.log("successfully added commitment")
+    if(commitment){
+        return commitment
+    }
     return;
 }
  function calculateMerkleRootAndPath(mimc, elements, element=undefined) {
